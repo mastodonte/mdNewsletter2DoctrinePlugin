@@ -41,13 +41,13 @@ NOTAS:
 2- Configurar las siguientes variables en el app.yml
 
 all:
-# Utilizadas para los links de unsuscribe del footer que se genera en el momento de hacer el envio segun destinatario
-# Se aconseja ver "que agrega symfony" cuando se realiza url_for en un task y sustituirlo en taskSymfonyUrl
+	// Utilizadas para los links de unsuscribe del footer que se genera en el momento de hacer el envio segun destinatario
+	// Se aconseja ver "que agrega symfony" cuando se realiza url_for en un task y sustituirlo en taskSymfonyUrl
   observer:
     taskSymfonyUrl: http://symfony/
     taskFrontendUrl: http://www.example.com/
 
-# Nombre de dominio sin "http://" usado para colocar links en los templates de newsletter
+	// Nombre de dominio sin "http://" usado para colocar links en los templates de newsletter
   domain:
     url: www.example.com
 
