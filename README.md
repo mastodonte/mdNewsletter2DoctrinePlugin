@@ -19,11 +19,11 @@ Instalacion Backend
 
 4- Si se quiere agregar un nuevo template de email se debera:
 
-	4.1- Crear archivo con el formulario de creacion de nombre '_form_' . $nombreTemplate en el modulo mdNewsletterTemplateBackend
+	4.1- Extender la clase de el formulario BasemdNewsletterTemplateForm cuyo nombre sera: $nombreTemplate . 'Form'
 
-	4.2- Crear archivo con el template del newsletter de nombre '_template_' . $nombreTemplate en el modulo mdNewsletterMailing
+	4.2- Crear archivo con el formulario de creacion de nombre '_form_' . $nombreTemplate en el modulo mdNewsletterTemplateBackend
 
-	4.3- Extender la clase de el formulario BasemdNewsletterTemplateForm cuyo nombre sera: $nombreTemplate . 'Form'
+	4.3- Crear archivo con el template del newsletter de nombre '_template_' . $nombreTemplate en el modulo mdNewsletterMailing
 
 	4.4- Customizar el template _selector_templates.php segun aplicacion que se encuentra en el modulo mdNewsletterTemplateBackend
 
