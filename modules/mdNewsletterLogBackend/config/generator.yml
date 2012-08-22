@@ -1,0 +1,30 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           mdNewsletterLog
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          md_newsletter_log
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        md_queue_id: { label: Id Envio }
+        problem_error_code: { label: Codigo }
+        problem_error_text: { label: Log }
+        created_at: { label: Fecha de Creacion, date_format: dd/MM/yyyy HH:mm }        
+      list:
+        display: [md_queue_id, problem_error_code, problem_error_text, created_at]
+        object_actions:
+          _delete: ~
+        actions: []  
+      filter:
+        class: false
+      form:    ~
+      edit:    ~
+      new:     ~

@@ -1,0 +1,137 @@
+mdNewsletterQueue:
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    subject:
+      type: string(64)
+      notnull: true
+    content:
+      type: blob
+      notnull: true
+    recipients:
+      type: integer(4)
+      default: 0
+    processed:
+      type: integer(4)
+      default: 0
+    sending_date:
+      type: timestamp
+    status:
+      type: enum
+      values: [cancelled, not sent, sending, sent]      
+     
+mdNewsletterTemplate:
+  actAs: { Timestampable: ~ }
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(32)
+      notnull: true      
+    subject:
+      type: string(64)
+      notnull: true
+    content:
+      type: blob
+      notnull: true
+    template:
+      type: string(32)
+      notnull: true
+
+mdNewsletterSubscriber:
+  actAs: { Timestampable: ~ }
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    email:
+      type: string(64)
+      notnull: true
+      unique: true
+    status:
+      type: enum
+      values: [subscribed, unsubscribed]
+      default: subscribed
+      
+mdNewsletterQueueSubscriber:
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    md_queue_id:
+      type: integer(4)
+      notnull: true      
+    md_subscriber_id:
+      type: integer(4)
+      notnull: true      
+    md_newsletter_sent_at:
+      type: timestamp
+  relations:
+    mdNewsletterQueue:
+      local: md_queue_id
+      onDelete: CASCADE
+    mdNewsletterSubscriber:
+      local: md_subscriber_id
+      onDelete: CASCADE
+
+mdNewsletterLog:
+  actAs: { Timestampable: ~ }  
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    md_subscriber_id:
+      type: integer(4)
+    md_queue_id:
+      type: integer(4)
+    problem_error_code:
+      type: string(16)
+    problem_error_text:
+      type: string(256)
+  relations:
+    mdNewsletterQueue:
+      local: md_queue_id
+      onDelete: CASCADE
+    mdNewsletterSubscriber:
+      local: md_subscriber_id
+      onDelete: CASCADE
+
+#newsletter_template######
+
+#mdNewsletterList:
+#  columns:
+#    id:
+#      type: integer(4)
+#      primary: true
+#      autoincrement: true
+#    name:
+#      type: string(256)
+#      notnull: true
+
+#mdNewsletterListUser:
+#  options:
+#    symfony:
+#      form:   false
+#      filter: false
+#  actAs: [Timestampable]
+#  columns:
+#    md_newsletter_group_id:
+#      type: integer(4)
+#      primary: true
+#    md_newsletter_user_id:
+#      type: integer(4)
+#      primary: true
+#  relations:
+#    mdNewsLetterGroup:
+#      local: md_newsletter_list_id
+#      onDelete: CASCADE
+#    mdNewsLetterUser:
+#      local: md_newsletter_user_id
+#      onDelete: CASCADE

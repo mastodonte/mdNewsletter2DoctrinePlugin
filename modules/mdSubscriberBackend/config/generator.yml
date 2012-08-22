@@ -1,0 +1,36 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           mdNewsletterSubscriber
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          md_newsletter_subscriber
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        created_at: { label: Fecha de Suscripcion, date_format: dd/MM/yyyy HH:mm }
+      list:
+        display: [ =id, email, status, created_at ]
+        actions:
+          _new: ~
+          _export:
+            label: exportar
+            action: exportar            
+            params:
+              class: suscribers_export
+              onclick: suscribers_export(this); return false;
+          _import:
+            label: importar
+            action: importar
+            params:
+              class: suscribers_import
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

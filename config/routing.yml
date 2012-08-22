@@ -1,0 +1,42 @@
+md_newsletter_template:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                mdNewsletterTemplate
+    module:               mdNewsletterTemplateBackend
+    prefix_path:          /mdNewsletterTemplateBackend
+    column:               id
+    with_wildcard_routes: true
+    
+md_newsletter_subscriber:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                mdNewsletterSubscriber
+    module:               mdSubscriberBackend
+    prefix_path:          /mdSubscriberBackend
+    column:               id
+    with_wildcard_routes: true
+
+md_newsletter_queue:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                mdNewsletterQueue
+    module:               mdQueueBackend
+    prefix_path:          /mdQueueBackend
+    column:               id
+    with_wildcard_routes: true
+
+getForms:
+  url:   /templates/get-forms
+  param: { module: mdNewsletterTemplateBackend, action: getForm }
+
+mdNewsletterEncolar:
+  url:   /templates/encolar/:id
+  param: { module: mdNewsletterTemplateBackend, action: encolar }
+
+mdNewsletterSuscribe:
+  url:   /newsletter/suscribe
+  param: { module: mdNewsletterFrontend, action: create }
+  
+mdNewsletterUnsuscribe:
+  url:   /newsletter/unsuscribe/:code
+  param: { module: mdNewsletterFrontend, action: unsuscribe }  

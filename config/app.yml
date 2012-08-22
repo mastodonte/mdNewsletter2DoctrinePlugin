@@ -1,0 +1,8 @@
+all:
+  observer:
+    taskSymfonyUrl: http://symfony/
+    taskFrontendUrl: http://www.agrotemario.com/
+
+# Nombre de dominio sin http:// usado para colocar links en los templates de newsletter
+  domain:
+    url: www.agrotemario.com

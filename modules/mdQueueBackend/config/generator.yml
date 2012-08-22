@@ -1,0 +1,31 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           mdNewsletterQueue
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          md_newsletter_queue
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        sending_date: { label: Fecha de Envio }
+        recipients: { label: '# Receptores' }
+        processed: { label: '# Procesados' }        
+      list:
+        object_actions:
+          _delete: ~
+          _edit:   ~
+          _preview:   { name: preview, action: preview, params: { class: 'iframe' } }        
+        display: [subject, recipients, processed, sending_date, status]
+        actions: []
+      filter:
+        class: false
+      form:    ~
+      edit:    ~
+      new:     ~

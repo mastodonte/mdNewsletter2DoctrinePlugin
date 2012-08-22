@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2010-07-28T16:23:16Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit>
+        <source>mdNewsletter_List</source>
+        <target>Listado</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Newsletter</source>
+        <target>Newsletter</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_New</source>
+        <target>Crear</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Edit</source>
+        <target>Editar</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Suscriptos</source>
+        <target>Suscriptos</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Templates</source>
+        <target>Templates</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Logs</source>
+        <target>Logs</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Queue</source>
+        <target>Envios</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Hora</source>
+        <target>Hora</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_hs</source>
+        <target>hs</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_min</source>
+        <target>min</target>
+        <note>es</note>
+      </trans-unit>      
+      <trans-unit>
+        <source>mdNewsletter_Crear Envio de Newsletter</source>
+        <target>Crear Envio de Newsletter</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Seleccione la fecha y hora en la cual se comenzara a enviar el newsletter.</source>
+        <target>Seleccione la fecha y hora en la cual se comenzara a enviar el newsletter.</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Importante! Recuerde que los mails no llegaran a todos los usuarios inmediatamente. Se enviaran en lotes de 100 mails cada 30 minutos.</source>
+        <target>Importante! Recuerde que los mails no llegaran a todos los usuarios inmediatamente. Se enviaran en lotes de 100 mails cada 30 minutos.</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Guardar</source>
+        <target>Guardar</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_url del sitio</source>
+        <target>http://www.example.com</target>
+        <note>es</note>
+      </trans-unit> 
+      <trans-unit>
+        <source>mdNewsletter_Email Requerido</source>
+        <target>Debes ingresar un e-mail valido</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Email Invalido</source>
+        <target>El mail ingresado es invalido</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Desuscripcion correcta</source>
+        <target>Te has desuscripto del newsletter correctamente. Ya no recibiras mas notificaciones</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Verification fail</source>
+        <target>Ha fallado la verificacion para desuscribirse al sistema de noticias Intenta nuevamente o pongase en contacto con nosotros.</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_user not exist</source>
+        <target>Ha fallado la verificacion para desuscribirse al sistema de noticias. Intenta nuevamente o pongase en contacto con nosotros.</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_El e-mail ingresado ya existe</source>
+        <target>Ya te encuentras registrado en el sistema de noticias</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Se a suscrito correctamente.</source>
+        <target>Se a suscrito correctamente</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Importante: La imagen se mostrara con las medidas originales que tenga.</source>
+        <target>Importante: La imagen se mostrara con las medidas originales que tenga y la extension permitida es .jpg.</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Templates</source>
+        <target>Templates</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_Seleccione el template para el newsletter</source>
+        <target>Seleccione el template para el newsletter</target>
+        <note>es</note>
+      </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_loading...</source>
+        <target>cargando...</target>
+        <note>es</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
