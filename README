@@ -13,7 +13,9 @@ Instalacion Backend
      2.2- Template basico con titulo y cuerpo
      2.3- Template avanzado con imagenes para header, footer y body
 
-3- Instalar el cron que realiza los envios: */10 * * * * /usr/local/bin/php /home/mastodonte/symfony mdNewsletter:observer
+3- Para incluir el menu del backend incluir en el _header.php de la aplicacion: <?php include_partial('mdNewsletterBackend/menu_header'); ?>
+
+4- Instalar el cron que realiza los envios: */10 * * * * /usr/local/bin/php /home/mastodonte/symfony mdNewsletter:observer
 
 	Con esta configuracion se envian 80 emails cada 10 minutos o sea que se envian 480/hora.
 	Estos parametros dependen mucho de las limitaciones que tenga el servidor de correo configurado.
