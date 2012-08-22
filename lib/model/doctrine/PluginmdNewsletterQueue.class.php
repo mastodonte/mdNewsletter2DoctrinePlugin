@@ -66,7 +66,7 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
 
     $param['recipients'] = $queue['mdNewsletterSubscriber']['email'];
     
-    $param['sender'] = array('name' => 'Agrotemario', 'email' => $mdMailXMLHandler->getEmail());
+    $param['sender'] = array('name' => $mdMailXMLHandler->getFrom(), 'email' => $mdMailXMLHandler->getEmail());
     
     return mdMailHandler::sendMail($param);
   }

@@ -15,8 +15,20 @@ abstract class PluginmdNewsletterTemplateForm extends BasemdNewsletterTemplateFo
     
     unset($this['created_at'], $this['updated_at']);
     
-    //$this->widgetSchema['content'] = new sfWidgetFormTextareaTinyMCE();
-    
+    $this->widgetSchema['content'] = new sfWidgetFormTextareaTinyMCE(
+        array(
+          'showTiny' => true,
+          'width' => 750,
+          'height' => 500,
+          'config' => '
+                  plugins : "preview,media,fullscreen, table",
+                  theme_advanced_buttons1 : "bold,italic,underline,separator,bullist,numlist, separator,justifyleft,justifycenter,justifyright,justifyfull, separator, link, sub, sup",
+                  theme_advanced_buttons2 : "table, indent, outdent, separator, charmap, code, media, preview, fullscreen",
+                  theme_advanced_buttons3 : "",
+                  theme_advanced_path : false
+                  '));
+
+
     $this->widgetSchema['template'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['template'] = new sfValidatorString(array('required' => false));
   }
