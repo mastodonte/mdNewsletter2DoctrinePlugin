@@ -9,8 +9,11 @@ Instalacion Backend
 1- Habilitar modulos en el settings del backend: mdNewsletterLogBackend, mdSubscriberBackend, mdNewsletterTemplateBackend, mdQueueBackend
 
 2- En forma predeterminada existen 3 templates distintos:
+
      2.1- Template con las ultimas noticias
+
      2.2- Template basico con titulo y cuerpo
+
      2.3- Template avanzado con imagenes para header, footer y body
 
 3- Instalar el cron que realiza los envios: */10 * * * * /usr/local/bin/php /home/mastodonte/symfony mdNewsletter:observer
@@ -69,5 +72,6 @@ Crear listas de emails
 
 --------------------
 Autor: Gaston Caldeiro
+
 Email: chugas488@gmail.com
 
