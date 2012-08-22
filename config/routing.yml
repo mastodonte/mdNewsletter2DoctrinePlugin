@@ -25,6 +25,15 @@ md_newsletter_queue:
     column:               id
     with_wildcard_routes: true
 
+md_newsletter_log:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                mdNewsletterLog
+    module:               mdNewsletterLogBackend
+    prefix_path:          /mdNewsletterLogBackend
+    column:               id
+    with_wildcard_routes: true
+
 getForms:
   url:   /templates/get-forms
   param: { module: mdNewsletterTemplateBackend, action: getForm }
@@ -40,3 +49,4 @@ mdNewsletterSuscribe:
 mdNewsletterUnsuscribe:
   url:   /newsletter/unsuscribe/:code
   param: { module: mdNewsletterFrontend, action: unsuscribe }  
+
