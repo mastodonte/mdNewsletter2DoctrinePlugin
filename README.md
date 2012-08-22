@@ -8,22 +8,14 @@ Instalacion Backend
 --------------------
 1- Habilitar modulos en el settings del backend: mdNewsletterLogBackend, mdSubscriberBackend, mdNewsletterTemplateBackend, mdQueueBackend
 
-2- En forma predeterminada existen 3 templates distintos:
-
-     2.1- Template con las ultimas noticias
-
-     2.2- Template basico con titulo y cuerpo
-
-     2.3- Template avanzado con imagenes para header, footer y body
-
-3- Instalar el cron que realiza los envios: */10 * * * * /usr/local/bin/php /home/mastodonte/symfony mdNewsletter:observer
+2- Instalar el cron que realiza los envios: */10 * * * * /usr/local/bin/php /home/mastodonte/symfony mdNewsletter:observer
 
 	Con esta configuracion se envian 80 emails cada 10 minutos o sea que se envian 480/hora.
 	Estos parametros dependen mucho de las limitaciones que tenga el servidor de correo configurado.
 
 	El valor 80 esta harcoded en el task.
 
-4- Si se quiere agregar un nuevo template de email se debera:
+3- Si se quiere agregar un nuevo template de email se debera:
 
 	4.1- Crear archivo con el formulario de creacion de nombre '_form_' . $nombreTemplate en el modulo mdNewsletterTemplateBackend
 
@@ -59,6 +51,15 @@ all:
     url: www.example.com
 
 		Nombre de dominio sin "http://" usado para colocar links en los templates de newsletter
+
+
+3- En forma predeterminada existen 3 templates distintos:
+
+     3.1- Template con las ultimas noticias
+
+     3.2- Template basico con titulo y cuerpo
+
+     3.3- Template avanzado con imagenes para header, footer y body
 
 --------------------
 Instalacion Frontend
