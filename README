@@ -13,11 +13,12 @@ Instalacion Backend
      2.2- Template basico con titulo y cuerpo
      2.3- Template avanzado con imagenes para header, footer y body
 
-3- Instalar el cron que realiza los envios:
+3- Instalar el cron que realiza los envios: */10 * * * * /usr/local/bin/php /home/mastodonte/symfony mdNewsletter:observer
 
-Con esta configuracion se envian 80 emails cada 10 minutos o sea que se envian 480/hora.
-Estos parametros dependen mucho de las limitaciones que tenga el servidor de correo configurado.
+	Con esta configuracion se envian 80 emails cada 10 minutos o sea que se envian 480/hora.
+	Estos parametros dependen mucho de las limitaciones que tenga el servidor de correo configurado.
 
+	El valor 80 esta harcoded en el task.
 
 4- Si se quiere agregar un nuevo template de email se debera:
 
@@ -37,6 +38,19 @@ NOTAS:
 		- Ambos deben estar en la carpeta images de la aplicacion, no de el modulo de newsletter.
 		- Es importante que la extension sea .jpg de lo contrario puede que la imagen no se muestre.
 
+2- Configurar las siguientes variables en el app.yml
+
+all:
+# Utilizadas para los links de unsuscribe del footer que se genera en el momento de hacer el envio segun destinatario
+# Se aconseja ver "que agrega symfony" cuando se realiza url_for en un task y sustituirlo en taskSymfonyUrl
+  observer:
+    taskSymfonyUrl: http://symfony/
+    taskFrontendUrl: http://www.agrotemario.com/
+
+# Nombre de dominio sin "http://" usado para colocar links en los templates de newsletter
+  domain:
+    url: www.agrotemario.com
+
 --------------------
 Instalacion Frontend
 --------------------
@@ -46,3 +60,8 @@ Instalacion Frontend
 TODO
 --------------------
 Crear listas de emails
+
+--------------------
+Autor: Gaston Caldeiro
+Email: chugas488@gmail.com
+
