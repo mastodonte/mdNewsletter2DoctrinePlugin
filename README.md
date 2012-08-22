@@ -41,6 +41,7 @@ NOTAS:
 2- Configurar las siguientes variables en el app.yml
 
 all:
+
   observer:
 
     taskSymfonyUrl: http://symfony/
