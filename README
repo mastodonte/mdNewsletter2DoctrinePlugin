@@ -45,11 +45,11 @@ all:
 # Se aconseja ver "que agrega symfony" cuando se realiza url_for en un task y sustituirlo en taskSymfonyUrl
   observer:
     taskSymfonyUrl: http://symfony/
-    taskFrontendUrl: http://www.agrotemario.com/
+    taskFrontendUrl: http://www.example.com/
 
 # Nombre de dominio sin "http://" usado para colocar links en los templates de newsletter
   domain:
-    url: www.agrotemario.com
+    url: www.example.com
 
 --------------------
 Instalacion Frontend
