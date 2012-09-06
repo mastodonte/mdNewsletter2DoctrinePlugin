@@ -31,14 +31,17 @@ EOF;
   {
     if (!Md_TaskManager::isTaskLocked(__class__)) 
     {
-        Md_TaskManager::lockTask(__class__);
-
+        $open = Md_TaskManager::lockTask(__class__);
+        if($open === false){
+          mdNewsletterLog::log(4, '[ERROR] No se pudo hacer el lock ' . time());
+        }
+        
         sfContext::createInstance($this->configuration);
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-        $records = Doctrine::getTable('mdNewsletterQueueSubscriber')->scheduledSend(80); // Hay que testear este valor y ver como se comporta el servidor
+        $records = Doctrine::getTable('mdNewsletterQueueSubscriber')->scheduledSend(60); // Hay que testear este valor y ver como se comporta el servidor
         $ids = array();
         $statics = array();
         
@@ -68,14 +71,32 @@ EOF;
           sleep(1);
         }
         
-        // Marcarlo fecha de enviado
-        mdNewsletterQueueSubscriber::updateDates($ids);
+        try{
+          if(count($ids) > 0)
+          {
+            // Marcarlo fecha de enviado
+            mdNewsletterQueueSubscriber::updateDates($ids);
+          }
+          
+          if(count($statics) > 0)
+          {
+            // Actualizamos estadisticas del envio
+            mdNewsletterQueue::stats($statics);
+          }
+          
+        }  catch (Exception $e){
+          
+          mdNewsletterLog::log(2, '[ERROR]' . $e->getMessage());
+          
+        }
         
-        // Actualizamos estadisticas del envio
-        mdNewsletterQueue::stats($statics);
-        
-        Md_TaskManager::unlockTask(__class__);
-    }    
+        $close = Md_TaskManager::unlockTask(__class__);
+        if($close === false){
+          mdNewsletterLog::log(4, '[ERROR] No se pudo hacer el unlock ' . time());
+        }
+    } else {
+      mdNewsletterLog::log(5, '[ERROR] Task lock ' . time());
+    }
 
   }
 }
