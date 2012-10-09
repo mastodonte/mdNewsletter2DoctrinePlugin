@@ -1,9 +1,0 @@
-mdNewsletterConfiguration:
-  first:
-    name: mdTemplateFirst
-
-  second:
-    name: mdTemplateSecond
-        
-  third:
-    name: mdTemplateThird
