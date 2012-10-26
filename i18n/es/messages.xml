@@ -139,6 +139,11 @@
         <target>cargando...</target>
         <note>es</note>
       </trans-unit>
+      <trans-unit>
+        <source>mdNewsletter_escriba su correo electrónico</source>
+        <target>escriba su correo electrónico</target>
+        <note>es</note>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
