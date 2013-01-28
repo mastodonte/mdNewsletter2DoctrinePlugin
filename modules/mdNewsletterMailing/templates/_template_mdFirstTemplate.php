@@ -15,7 +15,7 @@
     </th>
   </tr>
   <tr>
-    <td style="text-align: center;font-family: Verdana, Geneva, sans-serif; font-size: 28px;"">
+    <td style="text-align: center;font-family: Verdana, Geneva, sans-serif; font-size: 28px;">
         <?php echo nl2br($data['mdFirstEmbedTemplate']['copete_header']); ?>
     </td>
   </tr>
