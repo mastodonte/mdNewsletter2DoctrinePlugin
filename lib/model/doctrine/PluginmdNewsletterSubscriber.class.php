@@ -17,16 +17,17 @@ abstract class PluginmdNewsletterSubscriber extends BasemdNewsletterSubscriber {
   }
 
   public static function import($file, $ids = null) {
-    $data = new Spreadsheet_Excel_Reader($file, false);
+    $data = new Spreadsheet_Excel_Reader();
     $data->setOutputEncoding('CP1251'); // Set output Encoding.
     $data->read($file);
 
     $emails = array();
-    
+
     for ($i = 1; $i <= $data->rowcount(0); $i++) 
     {
       $email = trim($data->sheets[0]['cells'][$i][1]);
-      if($email != "") $emails[] = $email;
+
+      if($email != "" && mdBasicFunction::validEmail($email)) $emails[] = $email;
     }
     
     Doctrine::getTable('mdNewsletterSubscriber')->batch_create($emails);
