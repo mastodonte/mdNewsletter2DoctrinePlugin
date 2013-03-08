@@ -25,7 +25,11 @@ Instalacion Backend
 
 	4.3- Extender la clase de el formulario BasemdNewsletterTemplateForm cuyo nombre sera: $nombreTemplate . 'Form'
 
-	4.4- Customizar el template _selector_templates.php segun aplicacion que se encuentra en el modulo mdNewsletterTemplateBackend
+	4.4- Configurar la lista de templates a usar en el app.yml. 
+	all:
+	  mdNewsletter2DoctrinePlugin:
+	    templates:
+	      Nombre: $nombreTemplate
 
 NOTAS:
 

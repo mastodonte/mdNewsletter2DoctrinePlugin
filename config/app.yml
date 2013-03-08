@@ -1,4 +1,9 @@
 all:
+  mdNewsletter2DoctrinePlugin:
+    templates:
+      # Normal: 'mdNewsletterTemplate'
+      # Campaña: 'mdFirstTemplate'
+
   observer:
     taskSymfonyUrl: http://symfony/
     taskFrontendUrl: http://www.example.tld/
