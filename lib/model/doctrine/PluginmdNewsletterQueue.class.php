@@ -12,28 +12,37 @@
  */
 abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
 {
-  public function associate(){
+  public function associate($group = null){
     $con = Doctrine_Manager::getInstance()->connection();    
-
-    $records = Doctrine::getTable('mdNewsletterSubscriber')->findSubscribers();
-    
-    $r = array();
-    $sql = "INSERT INTO 
-            `md_newsletter_queue_subscriber` 
-            (`md_queue_id`, `md_subscriber_id`)";     
-
-    foreach($records as $record)
-    {
-      $d = "('" . $this->getId() . "', '" . $record['id'] . "')";    
-      array_push($r, $d);
+    if($group == null)
+      $records = Doctrine::getTable('mdNewsletterSubscriber')->findSubscribers();
+    else{
+      $group = Doctrine::getTable('mdNewsletterGroup')->find($group);
+      $records = $group->getSubscribers();
     }
-
-    $sql = $sql . ' VALUES ' . implode(',', $r);
-
-    //ejecutamos la consulta
-    $st = $con->execute($sql);
     
-    return count($records);
+    if(count($records)){
+
+      $r = array();
+      $sql = "INSERT INTO 
+              `md_newsletter_queue_subscriber` 
+              (`md_queue_id`, `md_subscriber_id`)";     
+
+      foreach($records as $record)
+      {
+        $d = "('" . $this->getId() . "', '" . $record['id'] . "')";    
+        array_push($r, $d);
+      }
+
+      $sql = $sql . ' VALUES ' . implode(',', $r);
+
+      //ejecutamos la consulta
+      $st = $con->execute($sql);
+      
+      return count($records);
+    }else{
+      return 0;
+    }
   }
   
   public function stats($stats){

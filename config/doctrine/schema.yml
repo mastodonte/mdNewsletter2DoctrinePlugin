@@ -20,8 +20,8 @@ mdNewsletterQueue:
       type: timestamp
     status:
       type: enum
-      values: [cancelled, not sent, sending, sent]      
-     
+      values: [cancelled, not sent, sending, sent]
+
 mdNewsletterTemplate:
   actAs: { Timestampable: ~ }
   columns:
@@ -57,7 +57,54 @@ mdNewsletterSubscriber:
       type: enum
       values: [subscribed, unsubscribed]
       default: subscribed
-      
+  relations:
+    mdNewsletterGroupSubscriber:
+      class: mdNewsletterGroupSubscriber
+      local: id
+      foreign: md_subscriber_id
+      type: many
+
+mdNewsletterGroup:
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(64)
+      notnull: true
+      unique: true
+  relations:
+    mdNewsletterGroupSubscriber:
+      class: mdNewsletterGroupSubscriber
+      local: id
+      foreign: md_group_id
+      type: many
+
+
+mdNewsletterGroupSubscriber:
+  actAs:
+    Timestampable: ~
+  columns:
+    md_subscriber_id: 
+      type: integer(4)
+      primary: true
+      autoincrement: false
+    md_group_id:
+      type: integer(4)
+      primary: true
+      autoincrement: false
+  relations:
+    subscribers:
+      class: mdNewsletterSubscriber
+      local: md_subscriber_id
+      type: one
+    group:
+      class: mdNewsletterGroup
+      local: md_group_id
+      type: one
+
+
 mdNewsletterQueueSubscriber:
   columns:
     id:

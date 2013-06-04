@@ -25,6 +25,18 @@ class mdQueueForm extends sfForm
     $this->widgetSchema['time']     = new sfWidgetFormTime(array('format_without_seconds' => '<li>' . __('mdNewsletter_Hora') . '</li><li>%hour%</li><li>' . __('mdNewsletter_hs') . ' :</li><li>%minute%</li><li>' . __('mdNewsletter_min') . '</li>', 'minutes' => array_combine($minutos, $minutos)));
     
     $this->validatorSchema['time']  = new sfValidatorTime(array());
+
+
+    $this->widgetSchema['group'] = new sfWidgetFormDoctrineChoice(array(
+                                      'model'     => 'mdNewsletterGroup',
+                                      'add_empty' => false,
+                                      'label' => 'Grupo'
+                                    ));
+
+    $this->validatorSchema['group'] = new sfValidatorDoctrineChoice(array(
+                                      'model'     => 'mdNewsletterGroup',
+                                      'required'  => true
+                                    ));
     
     $this->widgetSchema->setNameFormat('md_queue[%s]');    
   }

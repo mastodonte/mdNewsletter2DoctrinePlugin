@@ -37,7 +37,13 @@ class mdNewsletterTemplateBackendActions extends autoMdNewsletterTemplateBackend
       $queue->setSendingDate($date);
       $queue->save();
 
-      $count = $queue->associate();
+      if($parameters['group'] != ''){
+        $group = $parameters['group'];
+      }else{
+        $group = null;
+      }
+
+      $count = $queue->associate($group);
 
       $queue->setRecipients($count);
       $queue->save();

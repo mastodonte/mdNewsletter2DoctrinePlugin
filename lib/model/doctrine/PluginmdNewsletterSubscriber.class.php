@@ -12,6 +12,51 @@
  */
 abstract class PluginmdNewsletterSubscriber extends BasemdNewsletterSubscriber {
 
+
+  public static function suscribe($email, $groups = null){
+    //newsletter. Inscribo a todos al grupo usuarios y a los subscritos al grupo susctrito
+    $subscriber = mdNewsletterSubscriberTable::getInstance()->findOneByEmail($email);
+
+    if(!$subscriber){
+      $subscriber = new mdNewsletterSubscriber();
+      $subscriber->setEmail($email);
+      $subscriber->save();
+    }
+    if($groups != null){
+      if(!is_array($groups)){
+        $groups = array($groups);
+      }
+      foreach($groups as $group){
+        if(is_string($group))
+          $mdGroup = mdNewsletterGroupTable::getInstance()->findOneByName($group);
+        else
+          $mdGroup = mdNewsletterGroupTable::getInstance()->find($group);
+        
+        if(!$mdGroup->hasSubscriber($subscriber)){
+          $relation = new mdNewsletterGroupSubscriber();
+          $relation->setMdGroupId($mdGroup->getId());
+          $relation->setMdSubscriberId($subscriber->getId());
+          $relation->save();
+        }
+      }
+    }
+    return $subscriber;
+  }
+
+
+  public function removeFromGroup($group){
+    
+    if(gettype($group) == 'object' && get_class($group) == 'mdNewsletterGroup')
+      $mdGroup = $group;
+    elseif(is_string($group))
+      $mdGroup = mdNewsletterGroupTable::getInstance()->findOneByName($group);
+    else
+      $mdGroup = mdNewsletterGroupTable::getInstance()->find($group);
+
+    return $mdGroup->removeSubscriber($this);
+
+  }
+
   public static function export($ids = null) {
     return Doctrine::getTable('mdNewsletterSubscriber')->findSubscribers($ids);
   }
