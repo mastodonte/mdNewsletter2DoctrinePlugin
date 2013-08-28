@@ -20,9 +20,9 @@
           </ul>
         </div>      
       </div>
+      <?php if(sfConfig::get('app_mdNewsletter2DoctrinePlugin_use_groups', false)): ?>
       <div style="clear: both"></div>
       <div style="width:220px;margin:0 auto;">
-        
           <?php echo $form['group']->renderLabel(); ?>        
           <?php echo $form['group']->render(); ?>        
           <?php echo $form['group']->renderError(); ?>        
@@ -30,6 +30,7 @@
       </div>      
       
       <br />
+      <?php endif; ?>
       
       <div style="clear: both"></div>
       

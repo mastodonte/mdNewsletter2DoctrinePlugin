@@ -26,18 +26,19 @@ class mdQueueForm extends sfForm
     
     $this->validatorSchema['time']  = new sfValidatorTime(array());
 
+    if(sfConfig::get('app_mdNewsletter2DoctrinePlugin_use_groups', false)){
+      $this->widgetSchema['group'] = new sfWidgetFormDoctrineChoice(array(
+                                        'model'     => 'mdNewsletterGroup',
+                                        'add_empty' => false,
+                                        'label' => 'Grupo'
+                                      ));
 
-    $this->widgetSchema['group'] = new sfWidgetFormDoctrineChoice(array(
-                                      'model'     => 'mdNewsletterGroup',
-                                      'add_empty' => false,
-                                      'label' => 'Grupo'
+      $this->validatorSchema['group'] = new sfValidatorDoctrineChoice(array(
+                                        'model'     => 'mdNewsletterGroup',
+                                        'required'  => true
                                     ));
-
-    $this->validatorSchema['group'] = new sfValidatorDoctrineChoice(array(
-                                      'model'     => 'mdNewsletterGroup',
-                                      'required'  => true
-                                    ));
-    
+    }
+        
     $this->widgetSchema->setNameFormat('md_queue[%s]');    
   }
 }

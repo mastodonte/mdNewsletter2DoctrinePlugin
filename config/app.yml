@@ -3,6 +3,7 @@ all:
     templates:
       # Normal: 'mdNewsletterTemplate'
       # Campaña: 'mdFirstTemplate'
+    use_groups: false
 
   observer:
     taskSymfonyUrl: http://symfony/

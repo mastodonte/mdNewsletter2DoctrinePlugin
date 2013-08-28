@@ -28,7 +28,10 @@ class mdSubscriberBackendActions extends autoMdSubscriberBackendActions
 
     if(strpos($file['type'], 'excel') !== false || strpos($file['name'], '.xls') !== false)
     {
-      mdNewsletterSubscriber::import($file['tmp_name']);
+      $record['suscribers_import']['name'] = date('Y-m-d-') . $file['name'];
+      $filename = MdFileHandler::upload($record, sfConfig::get('sf_upload_dir').'/newsletter/import', true ,'suscribers_import');
+    
+      mdNewsletterSubscriber::import(sfConfig::get('sf_upload_dir').'/newsletter/import/' . $filename);
 
       $this->getUser()->setFlash('notice', 'Los usuarios se han importado correctamente');
     }
