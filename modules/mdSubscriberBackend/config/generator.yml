@@ -16,7 +16,7 @@ generator:
       fields:
         created_at: { label: Fecha de Suscripcion, date_format: dd/MM/yyyy HH:mm }
       list:
-        display: [ =id, email, status, created_at ]
+        display: [ =id, email, created_at ]
         actions:
           _new: ~
           _export:
