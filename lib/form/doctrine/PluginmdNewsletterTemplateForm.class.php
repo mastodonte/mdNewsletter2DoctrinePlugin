@@ -22,7 +22,7 @@ abstract class PluginmdNewsletterTemplateForm extends BasemdNewsletterTemplateFo
           'height' => 500,
           'config' => '
                   plugins : "preview,media,fullscreen, table, fullpage",
-                  theme_advanced_buttons1 : "bold,italic,underline,separator,bullist,numlist, separator,justifyleft,justifycenter,justifyright,justifyfull, separator, link, sub, sup",
+                  theme_advanced_buttons1 : "bold,italic,underline,separator,fontselect, fontsizeselect, forecolor, backcolor,separator,bullist,numlist, separator,justifyleft,justifycenter,justifyright,justifyfull, separator, link, sub, sup",
                   theme_advanced_buttons2 : "table, indent, outdent, separator, charmap, code, media, preview, fullscreen, separator, fullpage",
                   theme_advanced_buttons3 : "",
                   theme_advanced_path : false,
