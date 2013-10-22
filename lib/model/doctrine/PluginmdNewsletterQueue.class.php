@@ -12,6 +12,7 @@
  */
 abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
 {
+  //no se usa mas porque genera problemas con mas de 5000 mails
   public function associate($group = null){
     $con = Doctrine_Manager::getInstance()->connection();    
     if($group == null)
@@ -44,7 +45,34 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
       return 0;
     }
   }
+  public function getSubscribersScheduled($limit){
+    if($this->getMdGroupId()!=null){
+      //envio a los subscritos del grupo
+      $records = $this->getGroup()->getSubscribersSchedule($this->getId(), $limit);
+    }else{
+      // envio a todos los suscritos que no se envío
+      $records = Doctrine::getTable('mdNewsletterSubscriber')->findSubscribersNotQueue($this->getId(), $limit);
+    }          
+
+    return $records;
+
+  }
   
+
+  public function markSend(){
+    if($this->getProcessed() == 0){
+      $this->setStatus('sending');
+    }
+    $this->setProcessed((integer)$this->getProcessed() + 1);
+    if($this->getProcessed() == $this->getRecipients()){
+      $this->setStatus('sent');
+    }
+
+    return $this->save();
+  }
+
+
+  //deprecated
   public function stats($stats){
     if(count($stats) > 0)
     {
@@ -62,18 +90,18 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
     }
   }
   
-  public static function sendMail($queue){
+  public function sendMail($queue){
     $mdMailXMLHandler = new mdMailXMLHandler();
 
     $param['body'] = str_replace(
       array('%unsuscribe_url%', '%email%'),
-      array(mdNewsletterSubscriber::getUnsuscribeUrl( $queue['md_subscriber_id'] ), $queue['mdNewsletterSubscriber']['email']),
-      $queue['mdNewsletterQueue']['content']
+      array(mdNewsletterSubscriber::getUnsuscribeUrl( $queue['id'] ), $queue['email']),
+      $this->getContent()
     );
 
-    $param['subject'] = $queue['mdNewsletterQueue']['subject'];
+    $param['subject'] = $this->getSubject();
 
-    $param['recipients'] = $queue['mdNewsletterSubscriber']['email'];
+    $param['recipients'] = $queue['email'];
     
     $param['sender'] = array('name' => $mdMailXMLHandler->getFrom(), 'email' => $mdMailXMLHandler->getEmail());
     

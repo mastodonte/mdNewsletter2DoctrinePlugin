@@ -30,6 +30,23 @@ class PluginmdNewsletterSubscriberTable extends Doctrine_Table {
     return $query->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
   }
   
+  public function findSubscribersNotQueue($queue_id, $limit = null, $returnQuery = null){
+    $query = Doctrine_Query::create()
+        ->select('mdS.*')
+        ->from('mdNewsletterSubscriber mdS')
+        ->where('mdS.status =?', 'subscribed')
+        ->andWhere('mdS.id not in (select md_subscriber_id from md_newsletter_queue_subscriber where md_queue_id = ' . $queue_id . ')');
+
+    if($limit){
+      $query->limit($limit);
+    }
+    
+    if($returnQuery === true)
+      return $query;
+
+    return $query->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+  }
+
   public function batch_create($records) {
     $con = Doctrine_Manager::getInstance()->connection();
 	 	 

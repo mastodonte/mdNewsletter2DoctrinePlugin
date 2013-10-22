@@ -35,17 +35,20 @@ class mdNewsletterTemplateBackendActions extends autoMdNewsletterTemplateBackend
       $queue->setSubject($template->getSubject());
       $queue->setStatus('not sent');
       $queue->setSendingDate($date);
-      $queue->save();
+
+      // no se hace mas la asociaciion en mdNewsletterQueueSubscriber.
+      // solo se hace el insert y observerTask hace la consulta, envía y hace el insert histórico      
 
       if($parameters['group'] != ''){
-        $group = $parameters['group'];
+        $group = Doctrine::getTable('mdNewsletterGroup')->find($parameters['group']);
+        $queue->setGroup($group);
+        $records = $group->getSubscribers();
+
       }else{
         $group = null;
+        $records = Doctrine::getTable('mdNewsletterSubscriber')->findSubscribers();
       }
-
-      $count = $queue->associate($group);
-
-      $queue->setRecipients($count);
+      $queue->setRecipients(count($records));
       $queue->save();
 
       $this->getUser()->setFlash('notice', 'Se ha agendado un nuevo newsletter correctamente.');

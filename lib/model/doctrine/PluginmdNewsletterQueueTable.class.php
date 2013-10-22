@@ -16,4 +16,10 @@ class PluginmdNewsletterQueueTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginmdNewsletterQueue');
     }
+    public function findScheduleToSend(){
+      $q = $this->createQuery('q')
+            ->where("q.status not in ('cancelled', 'sent')")
+            ->andWhere("q.sending_date <= '" . date('Y-m-d H:i:s', time()) . "'");
+      return $q->fetchOne();
+    }
 }
