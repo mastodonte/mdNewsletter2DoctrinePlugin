@@ -4,6 +4,7 @@ all:
       # Normal: 'mdNewsletterTemplate'
       # Campaña: 'mdFirstTemplate'
     use_groups: false
+    observer_limit: 60
 
   observer:
     taskSymfonyUrl: http://symfony/

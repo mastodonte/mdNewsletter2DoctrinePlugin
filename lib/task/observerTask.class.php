@@ -41,8 +41,9 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-
-        $limit = 60; //cantidad de mails a enviar
+        //cantidad de mails a enviar
+        //maximo 500 mails por día. 
+        $limit = sfConfig::get('app_mdNewsletter2DoctrinePlugin_observer_limit', 60);
 
         $queue = mdNewsletterQueueTable::getInstance()->findScheduleToSend();
         if($queue){ 
