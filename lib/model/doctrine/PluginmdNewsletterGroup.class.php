@@ -25,7 +25,8 @@ abstract class PluginmdNewsletterGroup extends BasemdNewsletterGroup
 		$subs = parent::getMdNewsletterGroupSubscriber();
 		$return = array();
 		foreach($subs as $sub){
-			$return[] = $sub->getSubscribers();
+			if($sub->getSubscribers()->getStatus() == 'subscribed')
+				$return[] = $sub->getSubscribers();
 		}
 		return $return;
 	}
