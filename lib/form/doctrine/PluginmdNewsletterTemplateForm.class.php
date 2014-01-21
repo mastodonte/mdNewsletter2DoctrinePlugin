@@ -27,7 +27,8 @@ abstract class PluginmdNewsletterTemplateForm extends BasemdNewsletterTemplateFo
                   theme_advanced_buttons3 : "",
                   theme_advanced_path : false,
                   relative_urls: false,
-                  remove_script_host: false
+                  remove_script_host: false,
+                  convert_urls : false
                   '));
 
 
