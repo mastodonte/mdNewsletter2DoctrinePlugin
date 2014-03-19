@@ -65,11 +65,11 @@
   }
   
   $(document).ready(function() {
-    $('.active-focus').live('focusin', function(){
+    $('.active-focus').on('focusin', function(){
       if($(this).val() == $(this).attr('store')) $(this).val('');
     });
 
-    $('.active-focus').live('focusout', function(){
+    $('.active-focus').on('focusout', function(){
       if($(this).val() == "") $(this).val($(this).attr('store'));
     });
 
