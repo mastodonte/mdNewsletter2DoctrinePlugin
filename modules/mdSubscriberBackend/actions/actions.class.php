@@ -42,4 +42,23 @@ class mdSubscriberBackendActions extends autoMdSubscriberBackendActions
     
     $this->redirect('@md_newsletter_subscriber');
   }
+
+  public function executeBatchUnsubscribe(sfWebRequest $request)
+  {
+    $ids = $request->getParameter('ids');
+    $count = 0;
+    foreach($ids as $subs_id){
+      $subscriber = mdNewsletterSubscriberTable::getInstance()->find($subs_id);
+      $subscriber->unsuscribe();
+      $count ++;
+    }
+    if($count>0){
+      $this->getUser()->setFlash('exito', $count . ' emails han sido editados');
+    }else{
+      $this->getUser()->setFlash('notice', 'No se han editado emails');
+    }
+    
+    $this->redirect('@md_newsletter_subscriber');
+  }
+
 }

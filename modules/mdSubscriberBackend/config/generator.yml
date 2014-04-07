@@ -30,6 +30,9 @@ generator:
             action: importar
             params:
               class: suscribers_import
+        batch_actions:
+          _delete:    ~
+          unsubscribe:  ~
       filter:  ~
       form:    ~
       edit:    ~
