@@ -17,15 +17,14 @@ abstract class PluginmdNewsletterTemplateForm extends BasemdNewsletterTemplateFo
     
     $this->widgetSchema['content'] = new sfWidgetFormTextareaTinyMCE(
         array(
+          'theme' => 'modern',
           'showTiny' => true,
           'width' => 750,
           'height' => 500,
           'config' => '
-                  plugins : "preview,media,fullscreen, table, fullpage",
-                  theme_advanced_buttons1 : "bold,italic,underline,separator,fontselect, fontsizeselect, forecolor, backcolor,separator,bullist,numlist, separator,justifyleft,justifycenter,justifyright,justifyfull, separator, link, sub, sup",
-                  theme_advanced_buttons2 : "table, indent, outdent, separator, charmap, code, media, preview, fullscreen, separator, fullpage",
-                  theme_advanced_buttons3 : "",
-                  theme_advanced_path : false,
+                  menubar: "tools table format view insert edit",
+                  plugins : "preview,media,fullscreen, table, fullpage, link, image, media, textcolor, paste, code",
+                  toolbar : "undo redo | copy cut paste pastetext | bold italic | forecolor backcolor | link image, media | code preview fullscreen ",
                   relative_urls: false,
                   remove_script_host: false
                   '));

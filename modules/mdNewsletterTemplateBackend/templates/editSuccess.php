@@ -1,6 +1,6 @@
 <?php use_helper('I18N', 'Date') ?>
 <?php include_partial('mdNewsletterTemplateBackend/assets') ?>
-<?php use_javascript('tiny_mce/tiny_mce.js', 'last'); ?>
+<?php use_javascript('tinymce40/tinymce.min.js', 'last'); ?>
 
 <?php slot('newsletter'); ?>
 <?php slot('nav') ?><?php echo __('mdNewsletter_Newsletter'); ?> > <?php echo __('mdNewsletter_Templates'); ?><?php end_slot(); ?>
