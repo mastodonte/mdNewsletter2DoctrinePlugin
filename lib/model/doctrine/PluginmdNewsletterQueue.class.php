@@ -76,8 +76,9 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
     $param['recipients'] = $queue['mdNewsletterSubscriber']['email'];
     
     $param['sender'] = array('name' => $mdMailXMLHandler->getFrom(), 'email' => $mdMailXMLHandler->getEmail());
+    $param['reply_to'] = $mdMailXMLHandler->getEmail();
     
-    $param['realtime']=true;
+    $param['realtime'] = true;
 
     return mdMailHandler::sendMail($param);
   }
