@@ -5,7 +5,7 @@
 <?php slot('nav') ?><?php echo __('mdNewsletter_Newsletter'); ?> > <?php echo __('mdNewsletter_Suscriptos'); ?><?php end_slot(); ?>
 
 <div id="sf_admin_container">
-  <h1><?php echo __('mdNewsletter_Edit', array(), 'messages') ?></h1>
+  <h1>Editado Suscripto</h1>
 
   <?php include_partial('mdSubscriberBackend/flashes') ?>
 

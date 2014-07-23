@@ -5,7 +5,10 @@
 <?php slot('nav') ?><?php echo __('mdNewsletter_Newsletter'); ?> > <?php echo __('mdNewsletter_Suscriptos'); ?><?php end_slot(); ?>
 
 <div id="sf_admin_container">
-  <h1><?php echo __('mdNewsletter_List', array(), 'messages') ?></h1>
+  <div class="pull-right">
+    <a href="#filterPopup" class="btn btn-info" data-toggle="modal"><i class="icon-search"></i> Filtrar</a>
+  </div>
+  <h1>Suscriptos</h1>
 
   <?php include_partial('mdSubscriberBackend/flashes') ?>
 
