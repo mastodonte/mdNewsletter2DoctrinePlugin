@@ -6,7 +6,7 @@
 <?php slot('nav') ?><?php echo __('mdNewsletter_Newsletter'); ?> > <?php echo __('mdNewsletter_Templates'); ?><?php end_slot(); ?>
 
 <div id="sf_admin_container">
-  <h1><?php echo __('mdNewsletter_Edit', array(), 'messages') ?></h1>
+  <h1>Editando Template</h1>
 
   <?php include_partial('mdNewsletterTemplateBackend/flashes') ?>
 
