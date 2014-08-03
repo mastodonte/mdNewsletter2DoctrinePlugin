@@ -32,7 +32,7 @@ function newsletter_execute(form){
         $("#newsLetter_mail").trigger('click');
       }
       mdHideLoading();
-      $('#newsletter_message').html(json.options.message).show();        
+      $('#newsletter_message').html(json.options.message).show();
       setTimeout("$('#newsletter_message').fadeOut();parent.$.fancybox.close();", 1000);
     },
     complete: function(){
