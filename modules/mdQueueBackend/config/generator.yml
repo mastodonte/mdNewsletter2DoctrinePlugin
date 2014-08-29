@@ -21,7 +21,7 @@ generator:
         object_actions:
           _delete: ~
           _edit:   ~
-          _preview:   { name: preview, action: preview, params: { class: 'iframe' } }        
+          _preview:   { name: preview, action: preview, params: { class: 'iframe btn btn-primary' } }        
         display: [subject, recipients, processed, sending_date, status]
         actions: []
       filter:

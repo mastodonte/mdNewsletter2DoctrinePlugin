@@ -11,12 +11,14 @@
       
       <div style="width:220px;margin:0 auto;">
         <div>
+          <label>Día:</label>
           <?php echo $form['day']->render(array('class' => 'encolar_date', 'type' => 'date', 'data-orig-type' => 'date')); ?>
         </div>
 
-        <div class="hora">
-          <ul>
-            <?php echo $form['time']->render(); ?>        
+        <div class="hora" style="margin:10px 0;">
+          <label>Hora:</label>
+          <ul style="padding:0px">
+            <li style="padding:0px;"><?php echo $form['time']->render(); ?> </li>       
           </ul>
         </div>      
       </div>
@@ -24,8 +26,9 @@
       <br />
       
       <div style="clear: both"></div>
-      
-      <input type="submit" value="<?php echo __('mdNewsletter_Guardar'); ?>" />
+      <div style="text-align:center;margin:20px;">
+        <button type="submit" class="btn btn-success"><?php echo __('mdNewsletter_Guardar'); ?></button>
+      </div>
     </form>
     <br />
     <hr />
