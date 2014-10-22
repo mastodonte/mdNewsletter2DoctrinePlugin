@@ -27,4 +27,11 @@ abstract class PluginmdNewsletterQueueSubscriber extends BasemdNewsletterQueueSu
       $st = $con->execute($sql);
     }
   }
+  public static function insertSend($queue_id, $record){
+    $obj = new mdNewsletterQueueSubscriber();
+    $obj->setMdQueueId($queue_id);
+    $obj->setMdSubscriberId($record['id']);
+    $obj->setMdNewsletterSentAt(date('Y-m-d H:i:s', time()));
+    return $obj->save();
+  }
 }

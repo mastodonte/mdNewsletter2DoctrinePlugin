@@ -15,7 +15,7 @@ class PluginmdNewsletterQueueSubscriberTable extends Doctrine_Table {
   public static function getInstance() {
     return Doctrine_Core::getTable('PluginmdNewsletterQueueSubscriber');
   }
-  
+  // deprecated
   public function scheduledSend($limit){   
     $query = Doctrine::getTable('mdNewsletterQueueSubscriber')
       ->createQuery('n')

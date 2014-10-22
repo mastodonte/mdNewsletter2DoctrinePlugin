@@ -1,0 +1,2 @@
+ALTER TABLE  `md_newsletter_queue` ADD  `md_group_id` INT NULL DEFAULT NULL AFTER  `sending_date`;
+ALTER TABLE md_newsletter_queue ADD CONSTRAINT md_newsletter_queue_md_group_id_md_newsletter_group_id FOREIGN KEY (md_group_id) REFERENCES md_newsletter_group(id);

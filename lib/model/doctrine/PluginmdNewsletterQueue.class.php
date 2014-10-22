@@ -12,6 +12,11 @@
  */
 abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
 {
+  public function getSlug(){
+    return $this->getDateTimeObject('sending_date')->format('Y-m-d');
+  }
+
+  //no se usa mas porque genera problemas con mas de 5000 mails
   public function associate($group = null){
     $con = Doctrine_Manager::getInstance()->connection();    
     if($group == null)
@@ -44,7 +49,34 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
       return 0;
     }
   }
+  public function getSubscribersScheduled($limit){
+    if($this->getMdGroupId()!=null){
+      //envio a los subscritos del grupo
+      $records = $this->getGroup()->getSubscribersSchedule($this->getId(), $limit);
+    }else{
+      // envio a todos los suscritos que no se envío
+      $records = Doctrine::getTable('mdNewsletterSubscriber')->findSubscribersNotQueue($this->getId(), $limit);
+    }          
+
+    return $records;
+
+  }
   
+
+  public function markSend(){
+    if($this->getProcessed() == 0){
+      $this->setStatus('sending');
+    }
+    $this->setProcessed((integer)$this->getProcessed() + 1);
+    if($this->getProcessed() == $this->getRecipients()){
+      $this->setStatus('sent');
+    }
+
+    return $this->save();
+  }
+
+
+  //deprecated
   public function stats($stats){
     if(count($stats) > 0)
     {
@@ -62,18 +94,39 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
     }
   }
   
-  public static function sendMail($queue){
+
+
+  public function getDirectUrl(){
+    $sfContext = sfContext::getInstance();
+    $config = $sfContext->getConfiguration();
+    $config->loadHelpers(array('I18N', 'Partial'));
+    $origin_app = $config->getApplication();
+    $sfContext->switchTo('frontend');
+    
+
+    sfContext::getInstance()->getConfiguration()->loadHelpers("Url");
+    $url = str_replace(sfConfig::get('app_observer_taskSymfonyUrl'), sfConfig::get('app_observer_taskFrontendUrl') , url_for('mdNewsletterDirect' ,$this, true));
+    
+    $sfContext->switchTo($origin_app);
+
+    return $url;
+  }
+
+  public function sendMail($queue){
     $mdMailXMLHandler = new mdMailXMLHandler();
 
     $param['body'] = str_replace(
-      array('%unsuscribe_url%', '%email%'),
-      array(mdNewsletterSubscriber::getUnsuscribeUrl( $queue['md_subscriber_id'] ), $queue['mdNewsletterSubscriber']['email']),
-      $queue['mdNewsletterQueue']['content']
+      array('%unsuscribe_url%', '%direct_url%','%email%'),
+      array(
+        mdNewsletterSubscriber::getUnsuscribeUrl( $queue['id'] ),
+        $this->getDirectUrl(),
+        $queue['email']),
+      $this->getContent()
     );
 
-    $param['subject'] = $queue['mdNewsletterQueue']['subject'];
+    $param['subject'] = $this->getSubject();
 
-    $param['recipients'] = $queue['mdNewsletterSubscriber']['email'];
+    $param['recipients'] = $queue['email'];
     
     $param['sender'] = array('name' => $mdMailXMLHandler->getFrom(), 'email' => $mdMailXMLHandler->getEmail());
     $param['reply_to'] = $mdMailXMLHandler->getEmail();

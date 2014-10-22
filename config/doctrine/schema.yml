@@ -18,9 +18,17 @@ mdNewsletterQueue:
       default: 0
     sending_date:
       type: timestamp
+    md_group_id:
+      type: integer(4)
+      notnull: false
     status:
       type: enum
       values: [cancelled, not sent, sending, sent]
+  relations:
+    group:
+      class: mdNewsletterGroup
+      local: md_group_id
+      type: one
 
 mdNewsletterTemplate:
   actAs: { Timestampable: ~ }

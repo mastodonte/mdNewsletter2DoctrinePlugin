@@ -25,11 +25,19 @@ abstract class PluginmdNewsletterGroup extends BasemdNewsletterGroup
 		$subs = parent::getMdNewsletterGroupSubscriber();
 		$return = array();
 		foreach($subs as $sub){
-			$return[] = $sub->getSubscribers();
+			if($sub->getSubscribers()->getStatus() == 'subscribed')
+				$return[] = $sub->getSubscribers();
 		}
 		return $return;
 	}
+	public function getSubscribersSchedule($queue_id, $limit){
+		$q = Doctrine::getTable('mdNewsletterSubscriber')->findSubscribersNotQueue($queue_id, $limit, true);
 
+		$q->leftJoin($q->getRootAlias() .'.mdNewsletterGroupSubscriber gs')
+			->andWhere('gs.md_group_id = ' . $this->getId());
+
+		return $q->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+	}
 
 	public function removeSubscriber($subscriber){
 		$relation = mdNewsletterGroupSubscriberTable::getInstance()->findByKeys(array(

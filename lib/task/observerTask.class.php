@@ -41,55 +41,44 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-        $records = Doctrine::getTable('mdNewsletterQueueSubscriber')->scheduledSend(60); // Hay que testear este valor y ver como se comporta el servidor
-        $ids = array();
-        $statics = array();
-        
-        foreach($records as $record)
-        {
-          try
-          {
-            mdNewsletterLog::log(1,'[NOTICE] Before Send Mail: ' . $record['mdNewsletterSubscriber']['email'], $record['md_queue_id'], $record['md_subscriber_id']);
+        //cantidad de mails a enviar
+        //maximo 500 mails por día. 
+        $limit = sfConfig::get('app_mdNewsletter2DoctrinePlugin_observer_limit', 60);
 
-            if(mdNewsletterQueue::sendMail($record))
+        $queue = mdNewsletterQueueTable::getInstance()->findScheduleToSend();
+        if($queue){ 
+          $records = $queue->getSubscribersScheduled($limit);
+
+          $ids = array();
+          $statics = array();
+          
+          foreach($records as $record)
+          {
+            try
             {
-              mdNewsletterLog::log(2, '[NOTICE] After Send Mail: ' . $record['mdNewsletterSubscriber']['email'], $record['md_queue_id'], $record['md_subscriber_id']);
-              
-              array_push($ids, $record['id']);
-              
-              $statics[$record['md_queue_id']]++;
-            }
-            else
-            {
-              mdNewsletterLog::log(3, '[ERROR] El E-mail no ha podido enviarse' . $record['mdNewsletterSubscriber']['email'], $record['md_queue_id'], $record['md_subscriber_id']);
-            }
-          }catch(Exception $e){
+              mdNewsletterLog::log(1,'[NOTICE] Before Send Mail: ' . $record['email'], $queue->getId(), $record['id']);
 
-            mdNewsletterLog::log($e->getCode(), '[ERROR] ' . $e->getMessage() . ' '. $record['mdNewsletterSubscriber']['email'], $record['md_queue_id'], $record['md_subscriber_id']);
-          }
+              if($queue->sendMail($record))
+              {
+                mdNewsletterLog::log(2, '[NOTICE] After Send Mail: ' . $record['email'], $queue->getId(), $record['id']);
+                
+                mdNewsletterQueueSubscriber::insertSend($queue->getId(), $record);
+                $queue->markSend();
+                
+                $statics ++;
+              }
+              else
+              {
+                mdNewsletterLog::log(3, '[ERROR] El E-mail no ha podido enviarse' . $record['email'], $queue->getId(), $record['id']);
+              }
+            }catch(Exception $e){
 
-          sleep(1);
-        }
-        
-        try{
-          if(count($ids) > 0)
-          {
-            // Marcarlo fecha de enviado
-            mdNewsletterQueueSubscriber::updateDates($ids);
+              mdNewsletterLog::log($e->getCode(), '[ERROR] ' . $e->getMessage() . ' '. $record['email'], $queue->getId(), $record['id']);
+            }
+
+            //sleep(1);
           }
-          
-          if(count($statics) > 0)
-          {
-            // Actualizamos estadisticas del envio
-            mdNewsletterQueue::stats($statics);
-          }
-          
-        }  catch (Exception $e){
-          
-          mdNewsletterLog::log(2, '[ERROR]' . $e->getMessage());
-          
-        }
-        
+        } //end if $queue
         $close = Md_TaskManager::unlockTask(__class__);
         if($close === false){
           mdNewsletterLog::log(4, '[ERROR] No se pudo hacer el unlock ' . time());

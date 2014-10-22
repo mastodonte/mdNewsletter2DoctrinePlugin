@@ -16,6 +16,27 @@ class mdNewsletterFrontendActions extends sfActions {
     return $this->processForm($request, $this->form);
   }
   
+  public function executeShow(sfWebRequest $request){
+    $queue = $this->getRoute()->getObject();
+    
+
+    $email = $request->getParameter('e');
+
+    $body = str_replace(
+      array(
+        '%unsuscribe_url%', 
+        '%direct_url%',
+        '%email%'),
+      array(
+        mdNewsletterSubscriber::getUnsuscribeUrl( $queue->getId() ), 
+        $queue->getDirectUrl(),
+        $email),
+      $queue->getContent()
+    );
+    echo $body;
+    die();
+  }
+
   protected function processForm(sfWebRequest $request, sfForm $form){
     sfContext::getInstance()->getConfiguration()->loadHelpers("I18N");
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
