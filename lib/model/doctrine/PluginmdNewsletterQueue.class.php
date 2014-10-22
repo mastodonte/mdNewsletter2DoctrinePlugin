@@ -12,6 +12,10 @@
  */
 abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
 {
+  public function getSlug(){
+    return $this->getDateTimeObject('sending_date')->format('Y-m-d');
+  }
+
   //no se usa mas porque genera problemas con mas de 5000 mails
   public function associate($group = null){
     $con = Doctrine_Manager::getInstance()->connection();    
@@ -90,12 +94,33 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
     }
   }
   
+
+
+  public function getDirectUrl(){
+    $sfContext = sfContext::getInstance();
+    $config = $sfContext->getConfiguration();
+    $config->loadHelpers(array('I18N', 'Partial'));
+    $origin_app = $config->getApplication();
+    $sfContext->switchTo('frontend');
+    
+
+    sfContext::getInstance()->getConfiguration()->loadHelpers("Url");
+    $url = str_replace(sfConfig::get('app_observer_taskSymfonyUrl'), sfConfig::get('app_observer_taskFrontendUrl') , url_for('mdNewsletterDirect' ,$this, true));
+    
+    $sfContext->switchTo($origin_app);
+
+    return $url;
+  }
+
   public function sendMail($queue){
     $mdMailXMLHandler = new mdMailXMLHandler();
 
     $param['body'] = str_replace(
-      array('%unsuscribe_url%', '%email%'),
-      array(mdNewsletterSubscriber::getUnsuscribeUrl( $queue['id'] ), $queue['email']),
+      array('%unsuscribe_url%', '%direct_url%','%email%'),
+      array(
+        mdNewsletterSubscriber::getUnsuscribeUrl( $queue['id'] ),
+        $this->getDirectUrl(),
+        $queue['email']),
       $this->getContent()
     );
 

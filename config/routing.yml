@@ -50,3 +50,8 @@ mdNewsletterUnsuscribe:
   url:   /newsletter/unsuscribe/:code
   param: { module: mdNewsletterFrontend, action: unsuscribe }  
 
+mdNewsletterDirect:
+  url:   /newsletter/:slug/:id.html
+  param: { module: mdNewsletterFrontend, action: show }  
+  class:   sfDoctrineRoute
+  options: { model: mdNewsletterQueue, type: object }
