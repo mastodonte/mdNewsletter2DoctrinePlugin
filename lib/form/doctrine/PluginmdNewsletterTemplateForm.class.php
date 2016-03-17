@@ -28,7 +28,6 @@ abstract class PluginmdNewsletterTemplateForm extends BasemdNewsletterTemplateFo
                   relative_urls: false,
                   remove_script_host: false,
                   convert_urls : false,
-                  extended_valid_elements : "+td[colspan|rowspan|width|height|align|valign|bgcolor|style]|a[class|name|href|target|title|onclick|rel],script[type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],$elements",
                   fix_table_elements : false,
                   forced_root_block : false,
                   cleanup_on_startup: false,
