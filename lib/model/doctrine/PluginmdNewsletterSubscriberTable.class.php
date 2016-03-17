@@ -31,11 +31,9 @@ class PluginmdNewsletterSubscriberTable extends Doctrine_Table {
   }
   
   public function findSubscribersNotQueue($queue_id, $limit = null, $returnQuery = null){
-    $query = Doctrine_Query::create()
-        ->select('mdS.*')
-        ->from('mdNewsletterSubscriber mdS')
+    $query = mdNewsletterSubscriberTable::getInstance()->createQuery('mdS')
         ->where('mdS.status =?', 'subscribed')
-        ->andWhere('mdS.id not in (select md_subscriber_id from md_newsletter_queue_subscriber where md_queue_id = ' . $queue_id . ')');
+        ->andWhere('mdS.id in (select md_subscriber_id from md_newsletter_queue_subscriber where md_newsletter_sent_at is null and md_queue_id = ' . $queue_id . ')');
 
     if($limit){
       $query->limit($limit);

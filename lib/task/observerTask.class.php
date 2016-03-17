@@ -46,12 +46,13 @@ EOF;
         $limit = sfConfig::get('app_mdNewsletter2DoctrinePlugin_observer_limit', 60);
 
         $queue = mdNewsletterQueueTable::getInstance()->findScheduleToSend();
+
         if($queue){ 
           $records = $queue->getSubscribersScheduled($limit);
 
           $ids = array();
           $statics = array();
-          
+
           foreach($records as $record)
           {
             try
@@ -62,9 +63,7 @@ EOF;
               {
                 mdNewsletterLog::log(2, '[NOTICE] After Send Mail: ' . $record['email'], $queue->getId(), $record['id']);
                 
-                mdNewsletterQueueSubscriber::insertSend($queue->getId(), $record);
-                $queue->markSend();
-                
+                $ids[] = $record['id'];
                 $statics ++;
               }
               else
@@ -78,6 +77,12 @@ EOF;
 
             //sleep(1);
           }
+          //marco los envios como hechos
+
+          mdNewsletterQueueSubscriber::updateDates($ids);
+          $queue->markSend();
+
+
         } //end if $queue
         $close = Md_TaskManager::unlockTask(__class__);
         if($close === false){
