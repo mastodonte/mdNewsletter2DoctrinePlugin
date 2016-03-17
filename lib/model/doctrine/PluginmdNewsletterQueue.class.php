@@ -63,11 +63,11 @@ abstract class PluginmdNewsletterQueue extends BasemdNewsletterQueue
   }
   
 
-  public function markSend(){
+  public function markSend($quantity = 1){
     if($this->getProcessed() == 0){
       $this->setStatus('sending');
     }
-    $this->setProcessed((integer)$this->getProcessed() + 1);
+    $this->setProcessed((integer)$this->getProcessed() + $quantity);
     if($this->getProcessed() == $this->getRecipients()){
       $this->setStatus('sent');
     }

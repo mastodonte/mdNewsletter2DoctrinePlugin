@@ -79,8 +79,8 @@ EOF;
           }
           //marco los envios como hechos
 
-          mdNewsletterQueueSubscriber::updateDates($ids);
-          $queue->markSend();
+          mdNewsletterQueueSubscriber::updateDates($ids, $queue->getId());
+          $queue->markSend(count($ids));
 
 
         } //end if $queue

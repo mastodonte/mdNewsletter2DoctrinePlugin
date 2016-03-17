@@ -12,17 +12,18 @@
  */
 abstract class PluginmdNewsletterQueueSubscriber extends BasemdNewsletterQueueSubscriber
 {
-  public static function updateDates($records){
+  public static function updateDates($records, $queue_id){
     if(count($records) > 0)
     {
       $con = Doctrine_Manager::getInstance()->connection();
 
-      $sql = "UPDATE `md_newsletter_queue_subscriber` 
-              SET `md_newsletter_sent_at` = now()
-              WHERE `id` IN ";
+      $sql = "UPDATE md_newsletter_queue_subscriber 
+              SET md_newsletter_sent_at = now()
+              WHERE md_queue_id = " . $queue_id . " 
+              AND md_newsletter_sent_at is NULL 
+              AND md_subscriber_id IN ";
 
       $sql = $sql . "(" . implode(',', $records) . ")";
-
       //ejecutamos la consulta
       $st = $con->execute($sql);
     }
